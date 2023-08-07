@@ -20,11 +20,16 @@ def process_form():
     button_db = request.form.get('button_db')
     return render_template('index.html', button_python=button_python, button_discord=button_discord, button_html=button_html, button_db=button_db)
 
-@app.route('/', methods=['POST'])
-def index():
-    {{ id }}
-    {{ name }}
-    return render_template('index.html')
+@app.route('/submit', methods=['POST'])
+def submit_form():
+    email = request.form['email']
+    text = request.form['text']
+    with open('form.txt', 'a',) as f:
+        f.write(text + '/')
+        f.write(email + '/')
+    return render_template('form_result.html',
+                           text=text,
+                           email=email) 
 
 
 if __name__ == "__main__":
